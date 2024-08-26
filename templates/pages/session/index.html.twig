@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les sessions{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+
+<h1>Les sessions</h1>
+
+{% for message in app.flashes('success') %}
+
+<div class="flash-message flash-success">
+    <span class="icon">✔️</span> {{ message}}
+</div>
+
+{% endfor %}
+
+{% for message in app.flashes('warning') %}
+
+<div class="flash-message flash-warning">
+    <span class="icon">⚠️</span> {{ message }}
+</div>
+
+{% endfor %}
+
+<table class="table table-dark mt-4 mb-4">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Début de session</th>
+            <th scope="col">Fin de session</th>
+            <th scope="col">N° de places théoriques</th>
+            <th scope="col">N° places réservées</th>
+            <th scope="col">N° de places restantes</th>
+            <th scope="col">Détails</th>
+            <th scope="col">Modifier</th>
+            <th scope="col">Supprimer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for session in sessions %}
+            <tr class="table-primary">
+                <td>{{ session.name }}</td>
+                <td>{{ session.startSession|date('d/m/Y') }}</td>
+                <td>{{ session.endSession|date('d/m/Y') }}</td>
+                <td>{{ session.nbPlaces }}</td>
+                <td>{{ session.nbPlacesReserved }}</td>
+                <td>{{ session.nbPlaces - session.nbPlacesReserved }}</td>
+                <td><a href="{{ path('show_session', {'id':session.id}) }}"><button type="button" class="btn btn-success" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5">Détails</button></a></td>
+                <td><a href=""><button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5">Modifier</button></a></td>
+                <td><a href="{{ path('session.delete', { id:session.id }) }}"><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5">Supprimer</button></a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    <a href="{{ path('session.new') }}"> <button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Ajouter une session </button> </a>
+
+</div>
+{% endblock %}
+

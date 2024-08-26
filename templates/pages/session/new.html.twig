@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une sessions{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+<h1>Ajouter une session</h1>
+
+{{ form(formAddSession) }}
+
+
+<a href="{{ path('session') }}"> <button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour</button> </a>
+
+</div>
+
+{% endblock %}

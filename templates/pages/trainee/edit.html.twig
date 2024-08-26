@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Modifier un stagiaire {% endblock %}
+
+{% block body %}
+
+<div class="container mt-3">
+
+   <h1 class="mt-4 mb-4"> Modifier un stagiaire </h1>
+
+   {{ form_start(formAddTrainee) }}
+   
+        <div class="row">
+            <div class="col-sm">
+                {{form_row(formAddTrainee.name)}}
+            </div>
+            <div class="col-sm">
+                {{form_row(formAddTrainee.first_name)}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm  mt-4">
+                {{form_row(formAddTrainee.sex)}}
+            </div>
+            <div class="col-sm  mt-4">
+                {{form_row(formAddTrainee.date_birth)}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm  mt-4">
+                {{form_row(formAddTrainee.town)}}
+            </div>
+            <div class="col-sm  mt-4">
+                {{form_row(formAddTrainee.telephone)}}
+            </div>
+        </div>
+
+        <div class="row mt-4">
+      
+        {{form_row(formAddTrainee.email)}}
+
+        </div>
+      
+   {{ form_end(formAddTrainee) }}
+
+    <a href="{{ path('trainee') }}"> <button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour </button> </a>
+ 
+</div>
+
+{% endblock %}

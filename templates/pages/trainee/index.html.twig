@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les stagiaires{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4 mb-4">
+
+    <h1>Les stagiaires</h1>
+
+        {% for message in app.flashes('success') %}
+
+        <div class="flash-message flash-success">
+            <span class="icon">✔️</span> {{ message}}
+        </div>
+
+        {% endfor %}
+
+        {% for message in app.flashes('warning') %}
+
+        <div class="flash-message flash-warning">
+            <span class="icon">⚠️</span> {{ message }}
+        </div>
+
+        {% endfor %}
+
+    <table class="table table-dark mt-4">
+        <thead>
+            <tr>
+                <th scope="col">Nom       </th>
+                <th scope="col">Prénom    </th>
+                <th scope="col">Sexe      </th>
+                <th scope="col">Date      </th>
+                <th scope="col">Ville     </th>
+                <th scope="col">Email     </th>
+                <th scope="col">Téléphone </th>
+                <th scope="col">Détails   </th>
+                <th scope="col">Modifier  </th>
+                <th scope="col">Supprimer </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trainee in trainees %}
+                <tr class="table-primary">
+                    <td> {{ trainee.name }}                         </td>
+                    <td> {{ trainee.firstName }}                    </td>
+                    <td> {{ trainee.sex }}                          </td>
+                    <td> {{ trainee.dateBirth|date('d/m/Y')  }}     </td>
+                    <td> {{ trainee.town }}                         </td>
+                    <td> {{ trainee.email }}                        </td>
+                    <td> {{ trainee.telephone }}                    </td>
+
+                    <td> <a href="{{ path('show_trainee', {'id':trainee.id}) }}">   <button type="button" class="btn btn-success" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Détails  </button></a> </td>
+                    <td> <a href="{{ path('trainee.edit', { id:trainee.id }) }}"> <button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Modifier </button> </a> </td>
+                    <td> <a href="{{ path('trainee.delete', { id:trainee.id }) }}"> <button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Supprimer </button> </a> </td> 
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <a href="{{ path('trainee.new') }}"> <button type="button" class="btn btn-dark mb-4"> Ajouter un stagiaire </button> </a>
+    </div>
+
+    
+
+
+
+{% endblock %}
+
+

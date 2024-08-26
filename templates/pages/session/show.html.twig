@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'une sessions{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+<div class="table-container">
+
+    <h1>Détail de la session </h1>
+    
+</div>
+
+ <div class="container-information">
+    <p><b>Name :</b> {{ session.name }}</p>
+    <p><b>Date de démarrage :</b> {{ session.startSession|date('d/m/Y') }}</p>
+    <p><b>Date de fin :</b> {{ session.endSession|date('d/m/Y') }}</p>
+    <p><b>Nombre de places total :</b> {{ session.nbPlaces }}</p>
+    <p><b>Nombre de places réservées :</b> {{ session.nbPlacesReserved }}</p>
+    <p><b>Nombre de places restantes :</b> {{ session.nbPlaces - session.nbPlacesReserved }}</p>
+ </div>
+
+ <div class="table-container">
+    
+    <h2> Le Programme </h2>
+    
+    <table class="table table-dark mt-4 mb-4">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Début de session</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% if session.programmes | default %}
+                {% for programs in session.programmes %}
+                    <tr class="table-primary">
+                        <td>{{ programs.unit.name }} </td>
+                        <td>{{ programs.nbdays }} jours </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+
+        </tbody>
+    </table>
+
+ </div>
+
+<div class="container-button">
+    <a href="{{ path('session') }}"><button class="button" role="button"> Retour </button> </a>
+</div>
+</div>
+
+
+
+{% endblock %}

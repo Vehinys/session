@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Fiche stagiaires {% endblock %}
+
+{% block body %}
+
+    <div class="container mt-4">
+    
+    <h1>  <img src="{{ asset('img/contact.png') }}" alt="logo" srcset=""> Fiche stagiaires</h1>
+
+        <h2> <b> {{ trainee.firstName }} {{ trainee.name }}  </b> </h2>
+
+            <div>
+
+                <p> <b> Sexe : </b> {{ trainee.sex }} </p> 
+                <p> <b> Date de naissance : </b> {{ trainee.dateBirth|date('d/m/Y') }} ({{trainee.age}} ans)</p> 
+                <p> <b> Ville : </b> {{ trainee.town }}  </p>
+                <p> <b> Courriel : </b> {{ trainee.email }} </p>
+                <p> <b> Téléphone : </b> {{ trainee.telephone }} </p>
+
+            </div>
+
+        <h3> Sessions  prévues </h3>
+
+            <div>
+
+                {% for session in trainee.sessions %}
+
+                <tr>
+                    <td>
+                        <ul> 
+                            <li> 
+                                <p>
+                                    <b>
+                                        {{ session.name }} 
+                                    </b>
+
+                                    (Du {{ session.startSession|date('d/m/Y') }} au {{ session.endSession|date('d/m/Y')   }})
+                                </p>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </div>
+    
+    <a href="{{ path('trainee') }}"> <button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour </button> </a>
+
+    </div>
+
+{% endblock %}
