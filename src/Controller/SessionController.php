@@ -120,4 +120,3 @@ class SessionController extends AbstractController
         return $this->redirectToRoute('session');
     }
 }
-
