@@ -32,12 +32,11 @@
             </tr>
         </thead>
         <tbody>
-            
             {% if session.programmes | default %}
-                {% for programs in session.programmes %}
+                {% for program in session.programmes %}
                     <tr class="table-primary">
-                        <td>{{ programs.unit.name }} </td>
-                        <td>{{ programs.nbdays }} jours </td>
+                        <td>{{ program.unit.name }} </td>
+                        <td>{{ program.nbdays }} jours </td>
                     </tr>
                 {% endfor %}
             {% endif %}

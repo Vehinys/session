@@ -39,14 +39,16 @@ class SessionController extends AbstractController
         ): Response {
 
             $session = new Session();
-
             $form = $this->createForm(SessionType::class, $session);
-
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
 
                 $session = $form->getData();
+                $trainees = $form->get('trainees')->getData();
+                $programmes = $form->get('programmes')->getData();
+                
+                
                 $entityManager->persist($session);
                 $entityManager->flush();
 

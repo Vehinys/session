@@ -23,7 +23,7 @@ class TraineeType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control text-uppercase',
                     'minlength' => 2,
                     'maxlength' => 100,
                     'placeholder' => 'Entrez votre nom'
@@ -40,7 +40,7 @@ class TraineeType extends AbstractType
 
             ->add('first_name', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control tex-lowercase',
                     'minlength' => 1,
                     'maxlength' => 100,
                     'placeholder' => 'Entrez votre prénom'
