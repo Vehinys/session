@@ -47,9 +47,9 @@
                 <td>{{ session.nbPlaces }}</td>
                 <td>{{ session.nbPlacesReserved }}</td>
                 <td>{{ session.nbPlaces - session.nbPlacesReserved }}</td>
-                <td><a href="{{ path('show_session', {'id':session.id}) }}"><button type="button" class="btn btn-success" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5">Détails</button></a></td>
-                <td><a href=""><button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5">Modifier</button></a></td>
-                <td><a href="{{ path('session.delete', { id:session.id }) }}"><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5">Supprimer</button></a></td>
+                <td><a href="{{ path('show_session', {id:session.id}) }}"><button type="button" class="btn btn-success" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Détails </button> </a> </td>
+                <td><a href=""><button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Modifier </button> </a> </td>
+                <td><a href="{{ path('session.delete', { id:session.id }) }}"><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Supprimer </button> </a> </td>
             </tr>
         {% endfor %}
     </tbody>

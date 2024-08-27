@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Programme;
 use App\Entity\Session;
 use App\Form\SessionType;
 use App\Repository\SessionRepository;
@@ -16,6 +15,7 @@ class SessionController extends AbstractController
 {
     // Le chemin est '/session' et le nom de la route est 'session'
     #[Route('/session', name: 'session')]
+    
     public function index(
         
         SessionRepository $repository
@@ -39,15 +39,17 @@ class SessionController extends AbstractController
         ): Response {
 
             $session = new Session();
+
+            foreach ($session->getTrainees() as $trainee) {
+                $session->addTrainee($trainee);
+            }
+
             $form = $this->createForm(SessionType::class, $session);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
 
                 $session = $form->getData();
-                $trainees = $form->get('trainees')->getData();
-                $programmes = $form->get('programmes')->getData();
-                
                 
                 $entityManager->persist($session);
                 $entityManager->flush();
@@ -60,6 +62,44 @@ class SessionController extends AbstractController
             ]);
         }
 
+    #[Route('/session/edit/{id}', name: 'session.edit', methods: ['GET', 'POST'])]
+    public function edit(
+        
+        int $id, 
+        SessionRepository $repository,  
+        Request $request, 
+        EntityManagerInterface $manager
+        
+        ): Response {
+
+        $session = $repository->find($id);
+        if (!$session) {
+            throw $this->createNotFoundException('session non trouvé');
+        }
+
+        $form = $this->createForm(SessionType::class, $session);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $session = $form->getData();
+
+            $manager->persist($session);
+
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'La modification à été faite avec succès de ' . $session->getName()
+            );
+            return $this->redirectToRoute('session');
+        }
+        return $this->render('pages/session/edit.html.twig', [
+            'formAddSession' => $form->createView(),
+        ]);
+    }
+
     // Route pour afficher les détails d'une session spécifique identifiée par son 'id'
     #[Route('/session/{id}', name: 'show_session')]
     public function show(
@@ -69,9 +109,9 @@ class SessionController extends AbstractController
         
         ): Response {
 
-            // if (!$session instanceof Session) {
-            //     throw $this->createNotFoundException('La session demandée n\'existe pas.');
-            // }
+            if (!$session instanceof Session) {
+                throw $this->createNotFoundException('La session demandée n\'existe pas.');
+            }
             
             $programmes = $session->getProgrammes();
             

@@ -88,17 +88,17 @@ class SessionType extends AbstractType
                 'expanded' => false
             ])
 
-            ->add('programmes', EntityType::class, [
-                'class' => Unit::class,
-                'attr' => [
-                    'class' => 'form-control', 
-                ],
-                'choice_label' => function (Unit $unit) {
-                    return $unit->getName();
-                },
-                'multiple' => true,
-                'expanded' => false
-            ])
+            // ->add('programmes', EntityType::class, [
+            //     'class' => Unit::class,
+            //     'attr' => [
+            //         'class' => 'form-control', 
+            //     ],
+            //     'choice_label' => function (Unit $unit) {
+            //         return $unit->getName();
+            //     },
+            //     'multiple' => true,
+            //     'expanded' => false
+            // ])
 
             ->add('submit', SubmitType::class, [
                 'label' => 'Valider',

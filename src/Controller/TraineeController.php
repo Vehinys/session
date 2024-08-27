@@ -15,6 +15,7 @@ class TraineeController extends AbstractController
 {
     // Route pour afficher la liste des stagiaires
     #[Route('/trainee', name: 'trainee')]
+    
     public function index(
         
         TraineeRepository $repository

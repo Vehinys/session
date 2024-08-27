@@ -44,10 +44,34 @@
         </tbody>
     </table>
 
+    <table class="table table-dark mt-4 mb-4">
+        <thead>
+            <tr>
+                <th>Stagiaire inscrit</th>
+                <th></th>
+                <th>Stagiaire Non inscrit</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if session.trainees | default %}
+                {% for trainee in session.trainees %}
+                    <tr class="table-primary">
+                        <td>{{ trainee.name }} {{ trainee.firstName }}</td>
+                        <td> <a href=""><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> DESINCRIPTION </button> </a></td>
+                        <td>{{ trainee.name }} {{ trainee.firstName }}</td>
+                        <td> <a href=""><button type="button" class="btn btn-success" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> INSCRIPTION </button> </a> </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+
+        </tbody>
+    </table>
+
  </div>
 
 <div class="container-button">
-    <a href="{{ path('session') }}"><button class="button" role="button"> Retour </button> </a>
+    <a href="{{ path('session') }}"><button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour </button> </a>
 </div>
 </div>
 
