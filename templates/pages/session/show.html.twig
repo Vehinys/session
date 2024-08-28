@@ -53,15 +53,14 @@
         </thead>
 
         <tbody>
-            {% if session.trainees  %}
+
                 {% for trainee in session.trainees %}
                     <tr class="table-primary">
                         <td>{{ trainee.name }} {{ trainee.firstName }}</td>
                         <td> <a href=""><button type="button" class="btn btn-danger " data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> DESINCRIPTION </button> </a></td>
                     </tr>
-
                 {% endfor %}
-            {% endif %}
+
 
         </tbody>
         <thead>
@@ -78,7 +77,6 @@
                         <td>{{ trainee.name }} {{ trainee.firstName }}</td>
                         <td> <a href=""><button type="button" class="btn btn-success " data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> INCRIPTION </button> </a></td>
                     </tr>
-
                 {% endfor %}
           
         </tbody>

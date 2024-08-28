@@ -7,6 +7,7 @@ use App\Entity\Unit;
 use App\Entity\Session;
 use App\Entity\Trainee;
 use App\Entity\Programme;
+use PhpParser\Node\Name;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -25,7 +26,7 @@ class SessionType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control text-uppercase',
+                    'class' => 'form-control',
                     'minlength' => 2,
                     'maxlength' => 100,
                     'placeholder' => 'Entrez votre session'
@@ -85,7 +86,7 @@ class SessionType extends AbstractType
                     return $trainee->getName() . ' ' . $trainee->getFirstName();
                 },
                 'multiple' => true,
-                'expanded' => true
+                'expanded' => false
             ])
 
             ->add('programmes', EntityType::class, [
@@ -94,7 +95,7 @@ class SessionType extends AbstractType
                     'class' => 'form-control', 
                 ],
                 'choice_label' => function (Programme $programme) {
-                    return $programme->getId();
+                    return $programme->getUnit()->getName() . ' -> '. $programme->getNbDays().' '. ' jours ';
                 },
                 'multiple' => true,
                 'expanded' => false
