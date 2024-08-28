@@ -20,11 +20,47 @@
     <p><b>Nombre de places restantes :</b> {{ session.nbPlaces - session.nbPlacesReserved }}</p>
  </div>
 
- <div class="table-container">
+ <div class="container">
+
+    <h2> Les stagiaires </h2>
     
+    <div class="table-container" style="display: flex;">
+
+        <table class="table table-dark mt-4 mb-4">
+            <thead>
+                <tr>
+                    <th>Stagiaire inscrit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trainee in session.trainees %}
+                <tr class="table-primary ">
+                    <td>{{ trainee.name }} {{ trainee.firstName }}</td>
+                </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <table class="table table-dark mt-4 mb-4">
+            <thead>
+                <tr>
+                    <th>Stagiaire Non inscrit</th>
+                <tr>
+            </thead>
+            <tbody>
+                {% for trainee in trainees %}
+                    <tr class="table-primary">
+                        <td>{{ trainee.name }} {{ trainee.firstName }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
     <h2> Le Programme </h2>
     
-    <table class="table table-dark mt-4 mb-4">
+    <table class="table table-dark mt-4 mb-4" >
         <thead>
             <tr>
                 <th>Nom</th>
@@ -43,45 +79,6 @@
 
         </tbody>
     </table>
-
-    <table class="table table-dark mt-4 mb-4">
-        <thead>
-            <tr>
-                <th>Stagiaire inscrit</th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-                {% for trainee in session.trainees %}
-                    <tr class="table-primary">
-                        <td>{{ trainee.name }} {{ trainee.firstName }}</td>
-                        <td> <a href=""><button type="button" class="btn btn-danger " data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> DESINCRIPTION </button> </a></td>
-                    </tr>
-                {% endfor %}
-
-
-        </tbody>
-        <thead>
-            <tr>
-                <th>Stagiaire Non inscrit</th>
-                <th></th>
-            </tr>
-        </thead>
-
-        <tbody>
-
-                {% for trainee in trainees %}
-                    <tr class="table-primary">
-                        <td>{{ trainee.name }} {{ trainee.firstName }}</td>
-                        <td> <a href=""><button type="button" class="btn btn-success " data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> INCRIPTION </button> </a></td>
-                    </tr>
-                {% endfor %}
-          
-        </tbody>
-    </table>
- </div>
 
 <div class="container-button">
     <a href="{{ path('session') }}"><button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour </button> </a>

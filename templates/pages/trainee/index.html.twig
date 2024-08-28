@@ -35,8 +35,6 @@
                 <th scope="col">Email     </th>
                 <th scope="col">Téléphone </th>
                 <th scope="col">Détails   </th>
-                <th scope="col">Modifier  </th>
-                <th scope="col">Supprimer </th>
             </tr>
         </thead>
         <tbody>
@@ -49,10 +47,7 @@
                     <td> {{ trainee.town }}                         </td>
                     <td> {{ trainee.email }}                        </td>
                     <td> {{ trainee.telephone }}                    </td>
-
-                    <td> <a href="{{ path('show_trainee',   {id:trainee.id}) }}">   <button type="button" class="btn btn-success" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Détails  </button></a> </td>
-                    <td> <a href="{{ path('trainee.edit',   {id:trainee.id}) }}"> <button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Modifier </button> </a> </td>
-                    <td> <a href="{{ path('trainee.delete', {id:trainee.id}) }}"> <button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Supprimer </button> </a> </td> 
+                    <td> <a href="{{ path('show_trainee',   {id:trainee.id}) }}"> <img alt="" src="{{ asset('img/detail.jpg') }}"/></a></td> 
                 </tr>
             {% endfor %}
         </tbody>
