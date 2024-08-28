@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+
 #[ORM\Entity(repositoryClass: TraineeRepository::class)]
 class Trainee
 {
@@ -174,6 +175,11 @@ class Trainee
         $interval = $this->date_birth->diff($now);
         return $interval->format('%y');
 
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
 }

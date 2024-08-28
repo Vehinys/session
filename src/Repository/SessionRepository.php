@@ -35,18 +35,29 @@ class SessionRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function listTraineesNotInSession($sessionId)    {
+    public function listTraineesNotInSession($id)    {
 
-        $list = $this->getEntityManager()->createQueryBuilder();
-        $traineesNotInSession = $list->select('trainee')
-            ->from('AppBundle:Trainee', 'trainee')
-            ->where($list->expr()->notIn('trainee', $sessionId))
-            ->setParameter('session_id', $sessionId->getId())
-            ->getQuery()
-            ->getResult();
+        $em = $this->getEntityManager();
+        $sub  = $this->createQueryBuilder('a');
 
-        return $traineesNotInSession;
-    }
+        $qb = $sub;
+
+        $qb->select('t')
+          ->from('App\Entity\Trainee', 't')
+          ->leftJoin('t.sessions', 'ts')
+          ->andWhere('ts.id = :id');
+
+        $sub = $em->createQueryBuilder('b');
+
+        $sub->select('st')
+             ->from('App\Entity\Trainee', 'st')
+             ->where($sub->expr()->notIn('st.id',  $qb->getDQL()))
+
+             ->setParameter('id', $id);
+
+        $query = $sub->getQuery();
+        return $query->getResult();
+       }
 
     //    /**
     //     * @return Session[] Returns an array of Session objects

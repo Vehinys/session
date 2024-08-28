@@ -53,7 +53,7 @@
         </thead>
 
         <tbody>
-            {% if session.trainees | default %}
+            {% if session.trainees  %}
                 {% for trainee in session.trainees %}
                     <tr class="table-primary">
                         <td>{{ trainee.name }} {{ trainee.firstName }}</td>
@@ -64,7 +64,6 @@
             {% endif %}
 
         </tbody>
-
         <thead>
             <tr>
                 <th>Stagiaire Non inscrit</th>
@@ -73,16 +72,15 @@
         </thead>
 
         <tbody>
-            {% if session.trainees | default %}
-                {% for trainee in session.trainees %}
+
+                {% for trainee in trainees %}
                     <tr class="table-primary">
                         <td>{{ trainee.name }} {{ trainee.firstName }}</td>
                         <td> <a href=""><button type="button" class="btn btn-success " data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> INCRIPTION </button> </a></td>
                     </tr>
 
                 {% endfor %}
-            {% endif %}
-
+          
         </tbody>
     </table>
  </div>

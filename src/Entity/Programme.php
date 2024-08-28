@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProgrammeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProgrammeRepository::class)]
@@ -17,10 +19,18 @@ class Programme
     private ?int $nb_days = null;
 
     #[ORM\ManyToOne(inversedBy: 'programmes')]
-    private ?Session $session = null;
-
-    #[ORM\ManyToOne(inversedBy: 'programmes')]
     private ?Unit $unit = null;
+
+    /**
+     * @var Collection<int, Session>
+     */
+    #[ORM\ManyToMany(targetEntity: Session::class, inversedBy: 'programmes')]
+    private Collection $sessions;
+
+    public function __construct()
+    {
+        $this->sessions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -39,18 +49,6 @@ class Programme
         return $this;
     }
 
-    public function getSession(): ?Session
-    {
-        return $this->session;
-    }
-
-    public function setSession(?Session $session): static
-    {
-        $this->session = $session;
-
-        return $this;
-    }
-
     public function getUnit(): ?Unit
     {
         return $this->unit;
@@ -59,6 +57,30 @@ class Programme
     public function setUnit(?Unit $unit): static
     {
         $this->unit = $unit;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Session>
+     */
+    public function getSessions(): Collection
+    {
+        return $this->sessions;
+    }
+
+    public function addSession(Session $session): static
+    {
+        if (!$this->sessions->contains($session)) {
+            $this->sessions->add($session);
+        }
+
+        return $this;
+    }
+
+    public function removeSession(Session $session): static
+    {
+        $this->sessions->removeElement($session);
 
         return $this;
     }

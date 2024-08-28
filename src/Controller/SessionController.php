@@ -40,18 +40,28 @@ class SessionController extends AbstractController
 
             $session = new Session();
 
-            foreach ($session->getTrainees() as $trainee) {
-                $session->addTrainee($trainee);
-            }
 
             $form = $this->createForm(SessionType::class, $session);
+
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
 
                 $session = $form->getData();
-                
+                $trainees = $session->getTrainees();
+                $programmes = $session->getProgrammes();
+
+                foreach ($trainees as $trainee) {
+                    $session->addTrainee($trainee);
+                    $trainee->addSession($session);
+                }
+                foreach ($programmes as $programme) {
+                    $session->addProgramme($programme);
+                    $programme->AddSession($session);
+                }
+
                 $entityManager->persist($session);
+  
                 $entityManager->flush();
 
                 return $this->redirectToRoute('session');
@@ -115,14 +125,15 @@ class SessionController extends AbstractController
             
             $programmes = $session->getProgrammes();
             $traineesNotInSession = $session->getTrainees();
+
+      
             
             if (!empty($programmes)) {
                 // On garde la session inchangée et on récupère les programmes associés
                 $programmes = $repository->findProgramsBySession($session);
             }
 
-                $traineesNotInSession = $repository->listTraineesNotInSession($session);
-                
+            $traineesNotInSession = $repository->listTraineesNotInSession($session);
 
 
         // On passe la session récupérée à la vue via le tableau associatif 'session'
