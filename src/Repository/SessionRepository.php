@@ -36,30 +36,17 @@ class SessionRepository extends ServiceEntityRepository
     }
 
     public function listTraineesNotInSession($sessionId)    {
-        
-        return $this->createQueryBuilder('t')
 
-            ->where('t.id NOT IN (
-
-                SELECT ts.trainee
-
-                FROM  trainee_session ts
-
-                WHERE ts.session = :sessionId
-
-                )'
-            )
-
-            ->setParameter('sessionId', $sessionId)
-
-            ->orderBy('t.name', 'ASC')
-
+        $list = $this->getEntityManager()->createQueryBuilder();
+        $traineesNotInSession = $list->select('trainee')
+            ->from('AppBundle:Trainee', 'trainee')
+            ->where($list->expr()->notIn('trainee', $sessionId))
+            ->setParameter('session_id', $sessionId->getId())
             ->getQuery()
-
             ->getResult();
+
+        return $traineesNotInSession;
     }
-
-
 
     //    /**
     //     * @return Session[] Returns an array of Session objects

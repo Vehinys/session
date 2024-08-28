@@ -114,22 +114,21 @@ class SessionController extends AbstractController
             }
             
             $programmes = $session->getProgrammes();
-            $trainees = $session->getTrainees();
+            $traineesNotInSession = $session->getTrainees();
             
             if (!empty($programmes)) {
                 // On garde la session inchangée et on récupère les programmes associés
                 $programmes = $repository->findProgramsBySession($session);
             }
 
-            if (!empty($trainee)) {
-                // On garde la session inchangée et on récupère les trainees associés
-                $trainees = $repository->listTraineesNotInSession($session);
-            }
+                $traineesNotInSession = $repository->listTraineesNotInSession($session);
+                
+
 
         // On passe la session récupérée à la vue via le tableau associatif 'session'
         return $this->render('/pages/session/show.html.twig', [
             'session' => $session,
-            'trainees' => $trainees
+            'trainees' => $traineesNotInSession
         ]);
     }
 
