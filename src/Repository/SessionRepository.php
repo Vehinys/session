@@ -20,25 +20,46 @@ class SessionRepository extends ServiceEntityRepository
 
         // Initialisation du QueryBuilder avec l'alias 's' pour l'entité Session
         return $this->createQueryBuilder('s')
-    
             // Jointure interne avec l'entité 'Programmes' (alias 'sp') associée à 'Session'
             ->innerJoin('s.programmes', 'sp')
-    
             // Jointure interne avec l'entité 'Unit' (alias 'su') associée à 'Programmes'
             ->innerJoin('sp.unit', 'su')
-    
             // Sélection des entités 'Session', 'Programmes' et 'Unit' pour les inclure dans la requête
             ->addSelect('s', 'sp', 'su')
             // Ajout d'une condition pour filtrer par l'identifiant de la session
             ->where('s.id = :id')
-    
             // Définition du paramètre ':id' avec la valeur de l'argument de l'entité $session
             ->setParameter('id', $session)
-    
             // Construction et exécution de la requête
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function listTraineesNotInSession($sessionId)    {
+        
+        return $this->createQueryBuilder('t')
+
+            ->where('t.id NOT IN (
+
+                SELECT ts.trainee
+
+                FROM  trainee_session ts
+
+                WHERE ts.session = :sessionId
+
+                )'
+            )
+
+            ->setParameter('sessionId', $sessionId)
+
+            ->orderBy('t.name', 'ASC')
+
+            ->getQuery()
+
+            ->getResult();
+    }
+
+
 
     //    /**
     //     * @return Session[] Returns an array of Session objects

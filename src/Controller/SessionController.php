@@ -114,17 +114,25 @@ class SessionController extends AbstractController
             }
             
             $programmes = $session->getProgrammes();
+            $trainees = $session->getTrainees();
             
             if (!empty($programmes)) {
                 // On garde la session inchangée et on récupère les programmes associés
                 $programmes = $repository->findProgramsBySession($session);
             }
 
+            if (!empty($trainee)) {
+                // On garde la session inchangée et on récupère les trainees associés
+                $trainees = $repository->listTraineesNotInSession($session);
+            }
+
         // On passe la session récupérée à la vue via le tableau associatif 'session'
         return $this->render('/pages/session/show.html.twig', [
-            'session' => $session
+            'session' => $session,
+            'trainees' => $trainees
         ]);
     }
+
 
     // Route pour supprimer une session spécifique identifiée par son 'id'
     #[Route('/session/suppression/{id}', name: 'session.delete', methods: ['GET', 'POST'])]
