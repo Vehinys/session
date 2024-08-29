@@ -32,7 +32,7 @@ class TraineeController extends AbstractController
     }
 
     #[Route('/trainee/new', name: 'trainee.new', methods: ['GET', 'POST'])]
-    public function new(
+    public function newTrainee(
         
         Request $request,
         EntityManagerInterface $entityManager
@@ -60,7 +60,7 @@ class TraineeController extends AbstractController
     }
 
     #[Route('/trainee/edition/{id}', name: 'trainee.edit', methods: ['GET', 'POST'])]
-    public function edit(
+    public function editTrainee(
         
         int $id, 
         TraineeRepository $repository,  
@@ -98,7 +98,7 @@ class TraineeController extends AbstractController
 
     // Route pour afficher les détails d'une session spécifique identifiée par son 'id'
     #[Route('/trainee/{id}', name: 'show_trainee')]
-    public function show(
+    public function showTrainee(
         
         TraineeRepository $repository, 
         ?Trainee $trainee,
@@ -121,7 +121,7 @@ class TraineeController extends AbstractController
 
 
     #[Route('/trainee/suppression/{id}', name: 'trainee.delete', methods: ['GET', 'POST'])]
-    public function delete(
+    public function deleteTrainee(
         
         int $id, 
         TraineeRepository $repository, 

@@ -31,7 +31,7 @@ class SessionController extends AbstractController
     }
 
     #[Route('/session/new', name: 'session.new', methods: ['GET', 'POST'])]
-    public function new(
+    public function newSession(
         
         Request $request,
         EntityManagerInterface $entityManager
@@ -76,7 +76,7 @@ class SessionController extends AbstractController
 
     // Route pour afficher les détails d'une session spécifique identifiée par son 'id'
     #[Route('/session/{id}', name: 'show_session')]
-    public function show(
+    public function showSession(
         
         SessionRepository $repository, 
         ?Session $session = null,
@@ -148,7 +148,7 @@ class SessionController extends AbstractController
 
     // Route pour supprimer une session spécifique identifiée par son 'id'
     #[Route('/session/suppression/{id}', name: 'session.delete', methods: ['GET', 'POST'])]
-    public function delete(
+    public function deleteSession(
         
         int $id, 
         SessionRepository $repository, 

@@ -1,96 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail d'une sessions{% endblock %}
+{% block title %}Modifier une session{% endblock %}
 
 {% block body %}
 
-<div class="container mt-4">
-<div class="table-container">
+<div class="container">
 
-    <h1>Détail de la session </h1>
-    
+<h1>Modifier une session</h1>
+
+{{ form(formAddSession) }}
+
+
+<a href="{{ path('session') }}"> <button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour</button> </a>
+
 </div>
-
- <div class="container-information">
-    <p><b>Name :</b> {{ session.name }}</p>
-    <p><b>Date de démarrage :</b> {{ session.startSession|date('d/m/Y') }}</p>
-    <p><b>Date de fin :</b> {{ session.endSession|date('d/m/Y') }}</p>
-    <p><b>Nombre de places total :</b> {{ session.nbPlaces }}</p>
-    <p><b>Nombre de places réservées :</b> {{ session.nbPlacesReserved }}</p>
-    <p><b>Nombre de places restantes :</b> {{ session.nbPlaces - session.nbPlacesReserved }}</p>
- </div>
-
- <div class="container">
-
-    <h2> Les stagiaires </h2>
-    
-    <div class="table-container" style="display: flex;">
-
-        <table class="table table-dark mt-4 mb-4">
-            <thead>
-                <tr>
-                    <th>Stagiaire inscrit</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for trainee in session.trainees %}
-                <tr class="table-primary ">
-                    <td>{{ trainee.name }} {{ trainee.firstName }}</td>
-                </tr>
-                
-                {% endfor %}
-            </tbody>
-        </table>
-        
-        <table class="table table-dark mt-4 mb-4">
-            <thead>
-                <tr>
-                    <th>Stagiaire Non inscrit</th>
-                <tr>
-            </thead>
-            <tbody>
-                {% for trainee in trainees %}
-                    <tr class="table-primary">
-                        <td>{{ trainee.name }} {{ trainee.firstName }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-
-    <h2> Le Programme </h2>
-    
-    <table class="table table-dark mt-4 mb-4" >
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Début de session</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if session.programmes | default %}
-                {% for program in session.programmes %}
-                    <tr class="table-primary">
-                        <td>{{ program.unit.name }} </td>
-                        <td>{{ program.nbdays }} jours </td>
-                    </tr>
-                {% endfor %}
-            {% endif %}
-
-        </tbody>
-    </table>
-
-    <div class=" mb-4">
-        <td><a href=""><button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Modifier </button> </a> </td>
-        <td><a href="{{ path('session.delete', { id:session.id }) }}"><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Supprimer </button> </a> </td>
-    </div>
-
-
-<div class="container-button">
-    <a href="{{ path('session') }}"><button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour </button> </a>
-</div>
-</div>
-
-
 
 {% endblock %}
