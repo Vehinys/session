@@ -15,13 +15,18 @@
             <p><b>Date de démarrage :</b> {{ session.startSession|date('d/m/Y') }}</p>
             <p><b>Date de fin :</b> {{ session.endSession|date('d/m/Y') }}</p>
             <p><b>Nombre de places total :</b> {{ session.nbPlaces }}</p>
-            <p><b>Nombre de places réservées :</b> {{ session.nbPlacesReserved }}</p>
-            <p><b>Nombre de places restantes :</b> {{ session.nbPlaces - session.nbPlacesReserved }}</p>
+            <p><b>Nombre de places réservées :</b> {{  nombreDePlacesReservees }}</p>
+            
+            {% set placesRestantes = session.nbPlaces - nombreDePlacesReservees %}
+            <p ><b>Nombre de places restantes :</b> {{ placesRestantes }}</p>
+            {% if placesRestantes < 0 %}
+                <p class="bg-warning pt-5 pb-5 center" style="color: red; font-size:large"><b>VOUS AVEZ DÉPASSÉ LE NOMBRE DE STAGIAIRES PRÉVU</b></p>
+            {% endif %}
+                </div>
+
         </div>
 
-    </div>
-
-    <div class="container">
+    <div class="container mt-3">
 
         <h2> Les stagiaires </h2>
         
@@ -38,7 +43,7 @@
                     {% for trainee in session.trainees %}
                     <tr class="table-primary ">
                         <td>{{ trainee.name }} {{ trainee.firstName }}</td>
-                        <td><a href="{{ path('session.unsubscribe', { id:session.id }) }}"><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Désinscrire le stagiaire </button> </a> </td>
+                        <td><a href="{{ path('session.unsubscribe', { session:session.id, trainee:trainee.id }) }}"><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Désinscrire le stagiaire </button> </a> </td>
                     </tr>
                     
                     {% endfor %}
@@ -63,7 +68,7 @@
             </table>
         </div>
 
-        <h2> Le Programme </h2>
+        <h2 class="mt-2"> Le Programme </h2>
         
         <table class="table table-dark mt-4 mb-4" >
             <thead>

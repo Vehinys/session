@@ -117,7 +117,7 @@ class SessionController extends AbstractController
                 'success',
                 'La modification à été faite avec succès de '
             );
-            return $this->redirectToRoute('session');
+            return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
 
         }
         return $this->render('pages/session/edit.html.twig', [
@@ -150,12 +150,14 @@ class SessionController extends AbstractController
             }
 
             $traineesNotInSession = $repository->listTraineesNotInSession($session);
+            $nombreDePlacesReservees = count($session->getTrainees());
 
 
         // On passe la session récupérée à la vue via le tableau associatif 'session'
         return $this->render('/pages/session/show.html.twig', [
             'session' => $session,
-            'trainees' => $traineesNotInSession
+            'trainees' => $traineesNotInSession,
+            'nombreDePlacesReservees' => $nombreDePlacesReservees
         ]);
     }
 
