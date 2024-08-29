@@ -36,3 +36,15 @@ footer {
     text-align: center;
     padding: 20px 0;
 }
+
+.icone {
+    width: 40px;
+}
+
+.center {
+    align-content: center;
+    text-align: center;
+}
+.size{
+    font-size: 20px;
+}

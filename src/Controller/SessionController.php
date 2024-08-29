@@ -72,43 +72,7 @@ class SessionController extends AbstractController
             ]);
         }
 
-    #[Route('/session/edit/{id}', name: 'session.edit', methods: ['GET', 'POST'])]
-    public function edit(
-        
-        int $id, 
-        SessionRepository $repository,  
-        Request $request, 
-        EntityManagerInterface $manager
-        
-        ): Response {
-
-        $session = $repository->find($id);
-        if (!$session) {
-            throw $this->createNotFoundException('session non trouvé');
-        }
-
-        $form = $this->createForm(SessionType::class, $session);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $session = $form->getData();
-
-            $manager->persist($session);
-
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                'La modification à été faite avec succès de ' . $session->getName()
-            );
-            return $this->redirectToRoute('session');
-        }
-        return $this->render('pages/session/edit.html.twig', [
-            'formAddSession' => $form->createView(),
-        ]);
-    }
+  
 
     // Route pour afficher les détails d'une session spécifique identifiée par son 'id'
     #[Route('/session/{id}', name: 'show_session')]
@@ -140,6 +104,44 @@ class SessionController extends AbstractController
         return $this->render('/pages/session/show.html.twig', [
             'session' => $session,
             'trainees' => $traineesNotInSession
+        ]);
+    }
+
+ 
+    #[Route('/session/edition/{id}', name: 'session.edit', methods: ['GET', 'POST'])]
+    public function editSession(
+        
+        int $id, 
+        SessionRepository $repository,  
+        Request $request, 
+        EntityManagerInterface $manager
+        
+        ): Response {
+        $session = $repository->find($id);
+        if (!$session) {
+            throw $this->createNotFoundException('Stagiaire non trouvé');
+        }
+
+        $form = $this->createForm(sessionType::class, $session);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $session = $form->getData();
+
+            $manager->persist($session);
+
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'La modification à été faite avec succès de ' . $session->getName() . ' ' . $session->getFirstName()
+            );
+            return $this->redirectToRoute('session');
+        }
+        return $this->render('pages/session/edit.html.twig', [
+            'formAddSession' => $form->createView(),
         ]);
     }
 

@@ -27,27 +27,27 @@
     <table class="table table-dark mt-4">
         <thead>
             <tr>
-                <th scope="col">Nom       </th>
-                <th scope="col">Prénom    </th>
-                <th scope="col">Sexe      </th>
-                <th scope="col">Date      </th>
-                <th scope="col">Ville     </th>
-                <th scope="col">Email     </th>
-                <th scope="col">Téléphone </th>
-                <th scope="col">Détails   </th>
+                <th scope="col" class="center size text-uppercase">Nom       </th>
+                <th scope="col" class="center size text-uppercase">Prénom    </th>
+                <th scope="col" class="center size text-uppercase">Sexe      </th>
+                <th scope="col" class="center size text-uppercase">Date      </th>
+                <th scope="col" class="center size text-uppercase">Ville     </th>
+                <th scope="col" class="center size text-uppercase">Email     </th>
+                <th scope="col" class="center size text-uppercase">Téléphone </th>
+                <th scope="col" class="center size text-uppercase">Détails   </th>
             </tr>
         </thead>
         <tbody>
             {% for trainee in trainees %}
                 <tr class="table-primary">
-                    <td> {{ trainee.name }}                         </td>
-                    <td> {{ trainee.firstName }}                    </td>
-                    <td> {{ trainee.sex }}                          </td>
-                    <td> {{ trainee.dateBirth|date('d/m/Y')  }}     </td>
-                    <td> {{ trainee.town }}                         </td>
-                    <td> {{ trainee.email }}                        </td>
-                    <td> {{ trainee.telephone }}                    </td>
-                    <td> <a href="{{ path('show_trainee',   {id:trainee.id}) }}"> <img alt="" src="{{ asset('img/detail.jpg') }}"/></a></td> 
+                    <td class="center"> {{ trainee.name }}                         </td>
+                    <td class="center"> {{ trainee.firstName }}                    </td>
+                    <td class="center"> {{ trainee.sex }}                          </td>
+                    <td class="center"> {{ trainee.dateBirth|date('d/m/Y')  }}     </td>
+                    <td class="center"> {{ trainee.town }}                         </td>
+                    <td class="center"> {{ trainee.email }}                        </td>
+                    <td class="center"> {{ trainee.telephone }}                    </td>
+                    <td class="center"> <a href="{{ path('show_trainee',{id:trainee.id}) }}"> <img class="icone" src="{{ asset('img/detail.jpg') }}"/></a></td> 
                 </tr>
             {% endfor %}
         </tbody>
