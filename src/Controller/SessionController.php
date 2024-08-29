@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Session;
+use App\Entity\Trainee;
 use App\Form\SessionType;
+use Doctrine\ORM\Mapping\Entity;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,95 +33,97 @@ class SessionController extends AbstractController
     }
 
     #[Route('/session/new', name: 'session.new', methods: ['GET', 'POST'])]
+
     public function newSession(
         
         Request $request,
         EntityManagerInterface $entityManager
         
+    ): Response {
+
+        $session = new Session();
+
+        $form = $this->createForm(SessionType::class, $session);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $session = $form->getData();
+            $trainees = $session->getTrainees();
+            $programmes = $session->getProgrammes();
+
+            foreach ($trainees as $trainee) {
+                $session->addTrainee($trainee);
+                $trainee->addSession($session);
+            }
+
+            foreach ($programmes as $programme) {
+                $session->addProgramme($programme);
+                $programme->AddSession($session);
+            }
+
+            $entityManager->persist($session);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('session');
+        }   
+
+        return $this->render('/pages/session/new.html.twig', [
+            'formAddSession' => $form,
+        ]);
+    }
+
+    #[Route('/session/edition/{id}', name: 'session.edit', methods: ['GET', 'POST'])]
+    public function editSession(
+        
+        int $id, 
+        SessionRepository $repository,  
+        Request $request, 
+        EntityManagerInterface $manager
+        
         ): Response {
+        $session = $repository->find($id);
 
-            $session = new Session();
-
-            $form = $this->createForm(SessionType::class, $session);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                $session = $form->getData();
-                $trainees = $session->getTrainees();
-                $programmes = $session->getProgrammes();
-
-                foreach ($trainees as $trainee) {
-                    $session->addTrainee($trainee);
-                    $trainee->addSession($session);
-                }
-
-                foreach ($programmes as $programme) {
-                    $session->addProgramme($programme);
-                    $programme->AddSession($session);
-                }
-
-                $entityManager->persist($session);
-  
-                $entityManager->flush();
-
-                return $this->redirectToRoute('session');
-            }   
-
-            return $this->render('/pages/session/new.html.twig', [
-                'formAddSession' => $form,
-            ]);
+        if (!$session) {
+            throw $this->createNotFoundException('Stagiaire non trouvé');
         }
 
-        #[Route('/session/edition/{id}', name: 'session.edit', methods: ['GET', 'POST'])]
-        public function editSession(
-            
-            int $id, 
-            SessionRepository $repository,  
-            Request $request, 
-            EntityManagerInterface $manager
-            
-            ): Response {
-            $session = $repository->find($id);
+        $form = $this->createForm(sessionType::class, $session);
 
-            if (!$session) {
-                throw $this->createNotFoundException('Stagiaire non trouvé');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $session = $form->getData();
+            $trainees = $session->getTrainees();
+            $programmes = $session->getProgrammes();
+
+            foreach ($trainees as $trainee) {
+                $session->addTrainee($trainee);
+                $trainee->addSession($session);
             }
-    
-            $form = $this->createForm(sessionType::class, $session);
-    
-            $form->handleRequest($request);
-    
-            if ($form->isSubmitted() && $form->isValid()) {
 
-                $session = $form->getData();
-                $trainees = $session->getTrainees();
-                $programmes = $session->getProgrammes();
-
-                foreach ($trainees as $trainee) {
-                    $session->addTrainee($trainee);
-                    $trainee->addSession($session);
-                }
-
-                foreach ($programmes as $programme) {
-                    $session->addProgramme($programme);
-                    $programme->addSession($session);
-                }
-    
-                $manager->persist($session);
-                $manager->flush();
-    
-                $this->addFlash(
-                    'success',
-                    'La modification à été faite avec succès de '
-                );
-                return $this->redirectToRoute('session');
+            foreach ($programmes as $programme) {
+                $session->addProgramme($programme);
+                $programme->addSession($session);
             }
-            return $this->render('pages/session/edit.html.twig', [
-                'formAddSession' => $form->createView(),
-            ]);
+
+            $manager->persist($session);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'La modification à été faite avec succès de '
+            );
+            return $this->redirectToRoute('session');
+
         }
+        return $this->render('pages/session/edit.html.twig', [
+            'formAddSession' => $form->createView(),
+        ]);
+    }
   
 
     // Route pour afficher les détails d'une session spécifique identifiée par son 'id'
@@ -156,7 +160,52 @@ class SessionController extends AbstractController
     }
 
     // Route pour supprimer une session spécifique identifiée par son 'id'
+    #[Route('/session/unsubscribe/{session}/{trainee}', name: 'session.unsubscribe', methods: ['GET', 'POST'])]
+    public function unsubscribeTraineeInSession(
+        
+        Session $session,
+        Trainee $trainee,
+        EntityManagerInterface $manager
+
+        ): Response {
+
+            $session->removeTrainee($trainee);
+            $trainee->removeSession($session);
+
+            $manager->persist($trainee);
+            $manager->persist($session);
+            $manager->flush();
+    
+        // Redirection vers la route 'session'
+        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+    }
+
+
+    // Route pour supprimer une session spécifique identifiée par son 'id'
+    #[Route('/session/subscribe/{session}/{trainee}', name: 'session.subscribe', methods: ['GET', 'POST'])]
+    public function subscribeTraineeInSession(
+        
+        Session $session,
+        Trainee $trainee,
+        EntityManagerInterface $manager
+
+        ): Response {
+
+            $session->addTrainee($trainee);
+            $trainee->addSession($session);
+
+            $manager->persist($trainee);
+            $manager->persist($session);
+            $manager->flush();
+    
+        // Redirection vers la route 'session'
+        return $this->redirectToRoute('show_session', ['id' => $session->getId()]);
+    }
+
+
+    // Route pour supprimer une session spécifique identifiée par son 'id'
     #[Route('/session/suppression/{id}', name: 'session.delete', methods: ['GET', 'POST'])]
+
     public function deleteSession(
         
         int $id, 
@@ -188,4 +237,5 @@ class SessionController extends AbstractController
         // Redirection vers la route 'session'
         return $this->redirectToRoute('session');
     }
+
 }

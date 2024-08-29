@@ -38,7 +38,7 @@
                     {% for trainee in session.trainees %}
                     <tr class="table-primary ">
                         <td>{{ trainee.name }} {{ trainee.firstName }}</td>
-                        <td><a href=" {# {{ path('session.unsubscribe',   { id:session.id }) }}#}"><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Désinscrire le stagiaire </button> </a> </td>
+                        <td><a href="{{ path('session.unsubscribe', { id:session.id }) }}"><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Désinscrire le stagiaire </button> </a> </td>
                     </tr>
                     
                     {% endfor %}
@@ -56,7 +56,7 @@
                     {% for trainee in trainees %}
                         <tr class="table-primary">
                             <td>{{ trainee.name }} {{ trainee.firstName }}</td>
-                            <td><a href=""><button type="button" class="btn btn-success" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Inscrire le stagiaire </button> </a> </td>
+                            <td><a href="{{ path('session.subscribe',{ session:session.id, trainee:trainee.id }) }}"><button type="button" class="btn btn-success" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Inscrire le stagiaire </button> </a> </td>
                         </tr>
                     {% endfor %}
                 </tbody>
