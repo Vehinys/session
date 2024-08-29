@@ -40,7 +40,6 @@ class SessionController extends AbstractController
 
             $session = new Session();
 
-
             $form = $this->createForm(SessionType::class, $session);
 
             $form->handleRequest($request);
@@ -55,6 +54,7 @@ class SessionController extends AbstractController
                     $session->addTrainee($trainee);
                     $trainee->addSession($session);
                 }
+
                 foreach ($programmes as $programme) {
                     $session->addProgramme($programme);
                     $programme->AddSession($session);
@@ -72,6 +72,54 @@ class SessionController extends AbstractController
             ]);
         }
 
+        #[Route('/session/edition/{id}', name: 'session.edit', methods: ['GET', 'POST'])]
+        public function editSession(
+            
+            int $id, 
+            SessionRepository $repository,  
+            Request $request, 
+            EntityManagerInterface $manager
+            
+            ): Response {
+            $session = $repository->find($id);
+
+            if (!$session) {
+                throw $this->createNotFoundException('Stagiaire non trouvé');
+            }
+    
+            $form = $this->createForm(sessionType::class, $session);
+    
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $session = $form->getData();
+                $trainees = $session->getTrainees();
+                $programmes = $session->getProgrammes();
+
+                foreach ($trainees as $trainee) {
+                    $session->addTrainee($trainee);
+                    $trainee->addSession($session);
+                }
+
+                foreach ($programmes as $programme) {
+                    $session->addProgramme($programme);
+                    $programme->addSession($session);
+                }
+    
+                $manager->persist($session);
+                $manager->flush();
+    
+                $this->addFlash(
+                    'success',
+                    'La modification à été faite avec succès de '
+                );
+                return $this->redirectToRoute('session');
+            }
+            return $this->render('pages/session/edit.html.twig', [
+                'formAddSession' => $form->createView(),
+            ]);
+        }
   
 
     // Route pour afficher les détails d'une session spécifique identifiée par son 'id'
@@ -108,42 +156,6 @@ class SessionController extends AbstractController
     }
 
  
-    #[Route('/session/edition/{id}', name: 'session.edit', methods: ['GET', 'POST'])]
-    public function editSession(
-        
-        int $id, 
-        SessionRepository $repository,  
-        Request $request, 
-        EntityManagerInterface $manager
-        
-        ): Response {
-        $session = $repository->find($id);
-        if (!$session) {
-            throw $this->createNotFoundException('Stagiaire non trouvé');
-        }
-
-        $form = $this->createForm(sessionType::class, $session);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $session = $form->getData();
-
-            $manager->persist($session);
-
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                'La modification à été faite avec succès de ' . $session->getName() . ' ' . $session->getFirstName()
-            );
-            return $this->redirectToRoute('session');
-        }
-        return $this->render('pages/session/edit.html.twig', [
-            'formAddSession' => $form->createView(),
-        ]);
-    }
 
 
     // Route pour supprimer une session spécifique identifiée par son 'id'

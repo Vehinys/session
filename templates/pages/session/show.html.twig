@@ -30,12 +30,14 @@
             <thead>
                 <tr>
                     <th>Stagiaire inscrit</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {% for trainee in session.trainees %}
                 <tr class="table-primary ">
                     <td>{{ trainee.name }} {{ trainee.firstName }}</td>
+                    <td><a href=""><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Désinscription </button> </a> </td>
                 </tr>
                 
                 {% endfor %}
@@ -46,12 +48,14 @@
             <thead>
                 <tr>
                     <th>Stagiaire Non inscrit</th>
+                    <th></th>
                 <tr>
             </thead>
             <tbody>
                 {% for trainee in trainees %}
                     <tr class="table-primary">
                         <td>{{ trainee.name }} {{ trainee.firstName }}</td>
+                        <td><a href=""><button type="button" class="btn btn-success" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Inscription </button> </a> </td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -81,8 +85,8 @@
     </table>
 
     <div class=" mb-4">
-        <td><a href="{{ path('session.edit', { id:session.id }) }}"><button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Modifier </button> </a> </td>
-        <td><a href="{{ path('session.delete', { id:session.id }) }}"><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Supprimer </button> </a> </td>
+        <td><a href="{{ path('session.edit',   { id:session.id }) }}"><button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Modifier  </button> </a> </td>
+        <td><a href="{{ path('session.delete', { id:session.id }) }}"><button type="button" class="btn btn-danger " data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Supprimer </button> </a> </td>
     </div>
       
 
