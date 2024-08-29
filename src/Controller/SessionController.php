@@ -188,38 +188,4 @@ class SessionController extends AbstractController
         // Redirection vers la route 'session'
         return $this->redirectToRoute('session');
     }
-
-        // Route pour supprimer une session spécifique identifiée par son 'id'
-        #[Route('/session/unsubscribe/{id}', name: 'session.unsubscribe', methods: ['GET', 'POST'])]
-        public function unsubscribeTraineeInSession(
-            
-            int $id, 
-            SessionRepository $repository, 
-            EntityManagerInterface $manager,
-            
-            ): Response {
-        
-            // Recherche de la session avec l'ID fourni
-            $session = $repository->find($id);
-        
-            // Vérification si la session existe
-            if ($session) {
-                // Si la session est trouvée, unsubscribe
-                $manager->remove($session);
-                $manager->flush();
-        
-                $this->addFlash(
-                    'success',
-                    'unsubscribe avec succès de la session : ' . $session->getName()
-                );
-            } else {
-                $this->addFlash(
-                    'warning',
-                    'Echec lors de la unsubscribe de la session.'
-                );
-            }
-        
-            // Redirection vers la route 'session'
-            return $this->redirectToRoute('session');
-        }
 }
