@@ -11,15 +11,15 @@
         <h1>Détail de la session </h1>
     
         <div class="container-information">
-            <p><b>Name :</b> {{ session.name }}</p>
-            <p><b>Date de démarrage :</b> {{ session.startSession|date('d/m/Y') }}</p>
-            <p><b>Date de fin :</b> {{ session.endSession|date('d/m/Y') }}</p>
-            <p><b>Nombre de places total :</b> {{ session.nbPlaces }}</p>
-            <p><b>Nombre de places réservées :</b> {{  nombreDePlacesReservees }}</p>
+            <p><b class=" size font-weight-bold">Name :</b> {{ session.name }}</p>
+            <p><b class=" size font-weight-bold">Date de démarrage :</b> {{ session.startSession|date('d/m/Y') }}</p>
+            <p><b class=" size font-weight-bold">Date de fin :</b> {{ session.endSession|date('d/m/Y') }}</p>
+            <p><b class=" size font-weight-bold">Nombre de places total :</b> {{ session.nbPlaces }}</p>
+            <p><b class=" size font-weight-bold">Nombre de places réservées :</b> {{  nombreDePlacesReservees }}</p>
             {% set placesRestantes = session.nbPlaces - nombreDePlacesReservees %}
-            <p ><b>Nombre de places restantes :</b> {{ placesRestantes }}</p>
+            <p ><b class=" size font-weight-bold">Nombre de places restantes :</b> {{ placesRestantes }}</p>
             {% if placesRestantes < 0 %}
-                <p class="bg-warning pt-5 pb-5 center" style="color: red; font-size:large"><b>VOUS AVEZ DÉPASSÉ LE NOMBRE DE STAGIAIRES PRÉVU POUR CETTE SESSION</b></p>
+                <p class="bg-warning pt-5 pb-5 center " style="color: red; font-size:large"><b>VOUS AVEZ DÉPASSÉ LE NOMBRE DE STAGIAIRES PRÉVU POUR CETTE SESSION</b></p>
             {% endif %}
                 </div>
 
