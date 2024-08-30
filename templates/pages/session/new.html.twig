@@ -9,6 +9,7 @@
 <h1>Ajouter une session</h1>
 
 {{ form_start(formAddSession) }}
+
     {{form_row(formAddSession.name)}}
     {{form_row(formAddSession.start_session)}}
     {{form_row(formAddSession.end_session)}}
@@ -16,8 +17,15 @@
     {{form_row(formAddSession.nb_places_reserved)}}
     
     <h2>Programme de la session</h2>
-    
-    {{form_row(formAddSession.submit)}}
+
+    <div>
+        <div id="programme-fields-list"
+            date-prototype="{{ form_widget(form.programmes.vars.prototype) |e }}"
+            date-session="{{sessionId}}"
+            >
+
+        </div>
+    </div>
 
 {{ form_end(formAddSession) }}
 

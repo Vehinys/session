@@ -42,9 +42,7 @@ class SessionController extends AbstractController
     ): Response {
 
         $session = new Session();
-
         $form = $this->createForm(SessionType::class, $session);
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -67,6 +65,7 @@ class SessionController extends AbstractController
 
         return $this->render('/pages/session/new.html.twig', [
             'formAddSession' => $form,
+            'sessionId'=> $session->getId()
         ]);
     }
 

@@ -25,7 +25,7 @@ class ProgrammeType extends AbstractType
             ->add('unit', EntityType::class, [
                 'label'=> 'Module',
                 'class' => Unit::class,
-                'Choice_label'=> 'name'
+                'choice_label'=> 'name'
             ])
 
             ->add('nb_days',IntegerType::class,[
