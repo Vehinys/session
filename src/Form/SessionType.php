@@ -6,8 +6,7 @@ namespace App\Form;
 use App\Entity\Unit;
 use App\Entity\Session;
 use App\Entity\Trainee;
-use App\Entity\Programme;
-use PhpParser\Node\Name;
+use App\Form\ProgrammeType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,9 +14,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class SessionType extends AbstractType
 {
@@ -77,28 +76,20 @@ class SessionType extends AbstractType
                 ],
             ])
 
-            ->add('trainees', EntityType::class, [
-                'class' => Trainee::class,
-                'attr' => [
-                    'class' => 'form-control', 
-                ],
-                'choice_label' => function (Trainee $trainee) {
-                    return $trainee->getName() . ' ' . $trainee->getFirstName();
-                },
-                'multiple' => true,
-                'expanded' => false
-            ])
+            ->add('programmes', CollectionType::class, [
+                // La collection attend l'élément qu'elle entrera dans le form
+                //Ce n'est pas obligatoire que ce soit un autre form
+                'entry_type' => ProgrammeType::class,
+                'prototype'  => true,
+                // Autoriser l'ajout de nouveau élément dans Session 
+                // qui seront persister grace au cascade persist sur l'element programme  
+                // et qu'il va activer un data prototype qui sera un attribut HTML qu'on pourra manipuler en JS
+                'allow_add'    => true,
+                'allow_delete' => true,
+                'by_reference' => false, // Il est obligatoire car Session n'a pas de SetProgramme mais c'est Programme qui contient setSession
+                // c'est Programme qui est propriétaire de la relation
+                // pour eviter un mapping false on est obligé de rajouter un by_reference
 
-            ->add('programmes', EntityType::class, [
-                'class' => Programme::class,
-                'attr' => [
-                    'class' => 'form-control', 
-                ],
-                'choice_label' => function (Programme $programme) {
-                    return $programme->getUnit()->getName() . ' -> '. $programme->getNbDays().' '. ' jours ';
-                },
-                'multiple' => true,
-                'expanded' => false
             ])
 
             ->add('submit', SubmitType::class, [

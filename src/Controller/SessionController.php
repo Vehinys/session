@@ -50,13 +50,8 @@ class SessionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $session = $form->getData();
-            $trainees = $session->getTrainees();
-            $programmes = $session->getProgrammes();
 
-            foreach ($trainees as $trainee) {
-                $session->addTrainee($trainee);
-                $trainee->addSession($session);
-            }
+            $programmes = $session->getProgrammes();
 
             foreach ($programmes as $programme) {
                 $session->addProgramme($programme);

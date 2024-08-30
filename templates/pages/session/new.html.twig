@@ -8,7 +8,18 @@
 
 <h1>Ajouter une session</h1>
 
-{{ form(formAddSession) }}
+{{ form_start(formAddSession) }}
+    {{form_row(formAddSession.name)}}
+    {{form_row(formAddSession.start_session)}}
+    {{form_row(formAddSession.end_session)}}
+    {{form_row(formAddSession.nb_places)}}
+    {{form_row(formAddSession.nb_places_reserved)}}
+    
+    <h2>Programme de la session</h2>
+    
+    {{form_row(formAddSession.submit)}}
+
+{{ form_end(formAddSession) }}
 
 
 <a href="{{ path('session') }}"> <button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour</button> </a>
