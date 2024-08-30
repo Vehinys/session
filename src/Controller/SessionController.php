@@ -78,6 +78,7 @@ class SessionController extends AbstractController
 
         $form = $this->createForm(sessionType::class, $session);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $session = $form->getData();
