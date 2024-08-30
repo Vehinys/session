@@ -17,8 +17,6 @@ class ProgrammeType extends AbstractType
     {
         $builder
 
-            ->add('session', HiddenType::class)
-
             ->add('unit', EntityType::class, [
                 'label'=> 'Module',
                 'class' => Unit::class,
