@@ -11,12 +11,15 @@
         <h2 class="mb-4"> <b> {{ trainee.firstName }} {{ trainee.name }}  </b> </h2>
 
             <div>
-
+                {% if app.user %}
                 <p> <b> Sexe : </b> {{ trainee.sex }} </p> 
                 <p> <b> Date de naissance : </b> {{ trainee.dateBirth|date('d/m/Y') }} ({{trainee.age}} ans)</p> 
                 <p> <b> Ville : </b> {{ trainee.town }}  </p>
                 <p> <b> Courriel : </b> {{ trainee.email }} </p>
                 <p> <b> Téléphone : </b> {{ trainee.telephone }} </p>
+                {% else %}
+
+                {% endif %}
 
             </div>
 
