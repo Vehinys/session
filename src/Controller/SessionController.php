@@ -48,12 +48,6 @@ class SessionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $session = $form->getData();
-            $programmes = $session->getProgrammes();
-
-            foreach ($programmes as $programme) {
-                $session->addProgramme($programme);
-                $programme->AddSession($session);
-            }
 
             $entityManager->persist($session);
 
@@ -90,18 +84,6 @@ class SessionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $session = $form->getData();
-            $trainees = $session->getTrainees();
-            $programmes = $session->getProgrammes();
-
-            foreach ($trainees as $trainee) {
-                $session->addTrainee($trainee);
-                $trainee->addSession($session);
-            }
-
-            foreach ($programmes as $programme) {
-                $session->addProgramme($programme);
-                $programme->addSession($session);
-            }
 
             $manager->persist($session);
             $manager->flush();

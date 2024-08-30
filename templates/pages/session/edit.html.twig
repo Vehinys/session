@@ -8,7 +8,39 @@
 
 <h1>Modifier une session</h1>
 
-{{ form(formAddSession) }}
+{{ form_start(form) }}
+
+{{form_row(form.name)}}
+{{form_row(form.start_session)}}
+{{form_row(form.end_session)}}
+{{form_row(form.nb_places)}}
+{{form_row(form.nb_places_reserved)}}
+
+<h2>Programme de la session</h2>
+
+<div class="form-group row">
+    <div class="col-form-label col-sm-2">$nbsp;</div>
+    <div id="programme-fields-list" class="col-sm-10 remove-collection-widget"
+    data-prototype="{{ form_widget(form.programmes.vars.prototype)|e }}"
+    data-session="{{sessionId}}"
+    data-widget-tags="{{'<p></p>'|e}}"
+    data-widget-counter="{{ form.programmes|length }}">
+{% for programmeField in form.programmes %}
+    <p>
+        {{ form_errors(programmeField) }}
+        {{ form_widget(programmeField, {'attr': {'class': 'borders'}}) }}
+    </p>
+{% endfor %}
+</div>
+</div>
+<div class="form-group row flex-action">
+<button type="button" 
+class="add-another-collection-widget button"
+data-list-selector="#programme-fields-list">Ajouter un nouveau programme</button>
+</div>
+
+
+{{ form_end(form) }}
 
 
 <a href="{{ path('session') }}"> <button type="submit" class="btn btn-dark mt-4 mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour</button> </a>

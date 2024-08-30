@@ -8,8 +8,9 @@
 
 <h1>Ajouter une session</h1>
 
+<div class="test">
     {{ form_start(form) }}
-
+    
         {{form_row(form.name)}}
         {{form_row(form.start_session)}}
         {{form_row(form.end_session)}}
@@ -17,9 +18,9 @@
         {{form_row(form.nb_places_reserved)}}
         
         <h2>Programme de la session</h2>
-
+    
         <div class="form-group row">
-            <div class="col-form-label col-sm-2">$nbsp;</div>
+            {# <div class="col-form-label col-sm-2">$nbsp;</div> #}
             <div id="programme-fields-list" class="col-sm-10 remove-collection-widget"
             data-prototype="{{ form_widget(form.programmes.vars.prototype)|e }}"
             data-session="{{sessionId}}"
@@ -36,11 +37,13 @@
     <div class="form-group row flex-action">
         <button type="button" 
         class="add-another-collection-widget button"
-        data-list-selector="#programme-fields-list">Ajouter un nouveau programme</button>
+        data-list-selector="#programme-fields-list">Ajout d'un programme</button>
     </div>
-
-
+    
+    
     {{ form_end(form) }}
+</div>
+
 
 
 <a href="{{ path('session') }}"> <button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour</button> </a>
