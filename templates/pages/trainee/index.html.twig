@@ -47,7 +47,7 @@
                     <td class="center"> {{ trainee.town }}                         </td>
                     <td class="center"> {{ trainee.email }}                        </td>
                     <td class="center"> {{ trainee.telephone }}                    </td>
-                    <td class="center"> <a href="{{ path('show_trainee',{id:trainee.id}) }}"> <img class="icone" src="{{ asset('img/detail.jpg') }}"/></a></td> 
+                    <td class="center"> <a href="{{ path('show_trainee',{id:trainee.id}) }}"> <img class="icone" src="{{ asset('img/detail.jpg') }}" title="Détails du stagiaire" alt="Détails du stagiaire"/></a></td> 
                 </tr>
             {% endfor %}
         </tbody>

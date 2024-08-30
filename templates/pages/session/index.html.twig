@@ -45,7 +45,7 @@
                 <td class="center">{{ session.nbPlaces }}</td>
                 <td class="center">{{ session.nbPlacesReserved }}</td>
                 <td class="center">{{ session.nbPlaces - session.nbPlacesReserved }}</td>
-                <td class="center"> <a href="{{ path('show_session', {id:session.id}) }}"> <img class="icone" src="{{ asset('img/detail.jpg') }}"/></a></td> 
+                <td class="center"> <a href="{{ path('show_session', {id:session.id}) }}"> <img class="icone" src="{{ asset('img/detail.jpg') }}" title="Détails de la session" alt="Détails de la session"/></a></td> 
             </tr>
         {% endfor %}
     </tbody>
