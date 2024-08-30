@@ -21,15 +21,12 @@ class Programme
     #[ORM\ManyToOne(inversedBy: 'programmes')]
     private ?Unit $unit = null;
 
-    /**
-     * @var Collection<int, Session>
-     */
-    #[ORM\ManyToMany(targetEntity: Session::class, inversedBy: 'programmes')]
-    private Collection $sessions;
+    #[ORM\ManyToOne(inversedBy: 'programmes')]
+    private ?Session $session = null;
 
     public function __construct()
     {
-        $this->sessions = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -61,27 +58,16 @@ class Programme
         return $this;
     }
 
-    /**
-     * @return Collection<int, Session>
-     */
-    public function getSessions(): Collection
+    public function getSession(): ?Session
     {
-        return $this->sessions;
+        return $this->session;
     }
 
-    public function addSession(Session $session): static
+    public function setSession(?Session $session): static
     {
-        if (!$this->sessions->contains($session)) {
-            $this->sessions->add($session);
-        }
+        $this->session = $session;
 
         return $this;
     }
 
-    public function removeSession(Session $session): static
-    {
-        $this->sessions->removeElement($session);
-
-        return $this;
-    }
 }

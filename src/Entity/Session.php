@@ -40,14 +40,13 @@ class Session
     /**
      * @var Collection<int, Programme>
      */
-    #[ORM\ManyToMany(targetEntity: Programme::class, mappedBy: 'sessions')]
+    #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'session')]
     private Collection $programmes;
 
     public function __construct()
     {
         $this->trainees = new ArrayCollection();
         $this->programmes = new ArrayCollection();
-
     }
 
     public function getId(): ?int
@@ -161,7 +160,7 @@ class Session
     {
         if (!$this->programmes->contains($programme)) {
             $this->programmes->add($programme);
-            $programme->addSession($this);
+            $programme->setSession($this);
         }
 
         return $this;
@@ -170,10 +169,12 @@ class Session
     public function removeProgramme(Programme $programme): static
     {
         if ($this->programmes->removeElement($programme)) {
-            $programme->removeSession($this);
+            // set the owning side to null (unless already changed)
+            if ($programme->getSession() === $this) {
+                $programme->setSession(null);
+            }
         }
 
         return $this;
     }
-
 }
