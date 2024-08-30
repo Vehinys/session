@@ -48,7 +48,6 @@ class SessionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $session = $form->getData();
-
             $programmes = $session->getProgrammes();
 
             foreach ($programmes as $programme) {
@@ -64,7 +63,7 @@ class SessionController extends AbstractController
         }   
 
         return $this->render('/pages/session/new.html.twig', [
-            'formAddSession' => $form,
+            'form' => $form,
             'sessionId'=> $session->getId()
         ]);
     }
@@ -115,7 +114,7 @@ class SessionController extends AbstractController
 
         }
         return $this->render('pages/session/edit.html.twig', [
-            'formAddSession' => $form->createView(),
+            'form' => $form->createView(),
         ]);
     }
   
