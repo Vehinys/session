@@ -8,7 +8,7 @@
     
     <h1>  <img src="{{ asset('img/contact.png') }}" alt="logo" srcset=""> Fiche stagiaires</h1>
 
-        <h2> <b> {{ trainee.firstName }} {{ trainee.name }}  </b> </h2>
+        <h2 class="mb-4"> <b> {{ trainee.firstName }} {{ trainee.name }}  </b> </h2>
 
             <div>
 
@@ -20,9 +20,9 @@
 
             </div>
 
-        <h3> Sessions  prévues </h3>
+        <h3 class="mt-4 mb-4"> Sessions  prévues </h3>
 
-            <div>
+            <div class="mt-3 mb-4">
 
                 {% for session in trainee.sessions %}
 
@@ -48,7 +48,7 @@
 
             {% if app.user %}
 
-            <div>
+            <div style="display: flex; gap: 20px;">
                 <td> <a href="{{ path('trainee.edit',   {id:trainee.id}) }}"><button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Modifier le stagiaire  </button></a>
                 <td> <a href="{{ path('trainee.delete', {id:trainee.id}) }}"><button type="button" class="btn btn-danger " data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Supprimer le stagaire </button></a>
             </div>
