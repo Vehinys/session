@@ -78,7 +78,7 @@ class SessionType extends AbstractType
 
             ->add('programmes', CollectionType::class, [
                 // La collection attend l'élément qu'elle entrera dans le form
-                //Ce n'est pas obligatoire que ce soit un autre form
+                // Ce n'est pas obligatoire que ce soit un autre form
                 'entry_type' => ProgrammeType::class,
                 'prototype'  => true,
                 // Autoriser l'ajout de nouveau élément dans Session 

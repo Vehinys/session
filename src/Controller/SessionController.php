@@ -44,12 +44,11 @@ class SessionController extends AbstractController
         $session = new Session();
         $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $session = $form->getData();
-
             $entityManager->persist($session);
-
             $entityManager->flush();
 
             return $this->redirectToRoute('session');
@@ -73,12 +72,13 @@ class SessionController extends AbstractController
         $session = $repository->find($id);
 
         if (!$session) {
-            throw $this->createNotFoundException('Stagiaire non trouvé');
+            throw $this->createNotFoundException('Session non trouvé');
         }
 
-        $form = $this->createForm(sessionType::class, $session);
+        $form = $this->createForm(SessionType::class, $session);
         $form->handleRequest($request);
 
+        // dd($session);
         if ($form->isSubmitted() && $form->isValid()) {
 
             $session = $form->getData();
