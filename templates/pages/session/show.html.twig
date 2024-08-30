@@ -35,14 +35,22 @@
                 <thead>
                     <tr>
                         <th>Stagiaire inscrit</th>
+                        {% if app.user %}
                         <th></th>
+                        {% else %}
+
+                        {% endif %}
                     </tr>
                 </thead>
                 <tbody>
                     {% for trainee in session.trainees %}
                     <tr class="table-primary ">
                         <td>{{ trainee.name }} {{ trainee.firstName }}</td>
+                        {% if app.user %}
                         <td><a href="{{ path('session.unsubscribe', { session:session.id, trainee:trainee.id }) }}"><button type="button" class="btn btn-danger" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Désinscrire le stagiaire </button> </a> </td>
+                        {% else %}
+
+                        {% endif %}
                     </tr>
                     
                     {% endfor %}
@@ -53,14 +61,22 @@
                 <thead>
                     <tr>
                         <th>Stagiaire Non inscrit</th>
+                        {% if app.user %}
                         <th></th>
+                        {% else %}
+
+                        {% endif %}
                     <tr>
                 </thead>
                 <tbody>
                     {% for trainee in trainees %}
                         <tr class="table-primary">
                             <td>{{ trainee.name }} {{ trainee.firstName }}</td>
+                            {% if app.user %}
                             <td><a href="{{ path('session.subscribe',{ session:session.id, trainee:trainee.id }) }}"><button type="button" class="btn btn-success" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Inscrire le stagiaire </button> </a> </td>
+                            {% else %}
+
+                            {% endif %}
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -88,13 +104,16 @@
 
             </tbody>
         </table>
-        
-        <div>
-            <a href="{{ path('session.edit',   {id:session.id}) }}"><button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Modifier la session  </button></a>
-            <a href="{{ path('session.delete', {id:session.id}) }}"><button type="button" class="btn btn-danger " data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Supprimer la session </button></a>
-        </div>
-        
-    
+
+    {% if app.user %}
+            <div>
+                <a href="{{ path('session.edit',   {id:session.id}) }}"><button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Modifier la session  </button></a>
+                <a href="{{ path('session.delete', {id:session.id}) }}"><button type="button" class="btn btn-danger " data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Supprimer la session </button></a>
+            </div>
+        {% else %}
+
+        {% endif %}
+
         <div class="mt-5">
             <a href="{{ path('session') }}"> <button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour </button> </a>
         </div>

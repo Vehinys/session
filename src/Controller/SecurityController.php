@@ -27,9 +27,10 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/logout', name: 'app_logout')]
-    public function logout(): void
+    #[Route(path: '/deconnection', name: 'deconnecter')]
+    public function logout(): Response
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        // Logique de déconnexion manuelle si nécessaire
+        return $this->redirectToRoute('home'); // Redirige vers la page d'accueil après la déconnexion
     }
 }

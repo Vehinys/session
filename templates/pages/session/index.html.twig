@@ -51,8 +51,10 @@
     </tbody>
 </table>
 
-    <a href="{{ path('session.new') }}"> <button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Ajouter une session </button> </a>
-
+    {% if app.user %}
+        <a href="{{ path('session.new') }}"> <button type="button" class="btn btn-dark mb-4"> Ajouter un stagiaire </button> </a>
+    {% else %}
+    {% endif %}
 </div>
 {% endblock %}
 

@@ -1,22 +1,36 @@
 <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
   <div class="container-fluid">
-      <a class="navbar-brand" href="{{ path('home') }}"> Accueil </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarColor02">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('trainee') }}"> Les stagiaires</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('session') }}"> Les sessions</a>
-          </li>
-          {# <li class="nav-item">
-            <a class="nav-link" href="{{ path('programme') }}"> Les programmes</a>
-          </li> #}
-        </ul>
-      </div>
+    <a class="navbar-brand" href="{{ path('home') }}"> Accueil </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('trainee') }}"> Les stagiaires</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('session') }}"> Les sessions</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav m-sm-auto mb-2 mb-lg-0">
+        {% if app.user %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('home') }}"> Mon compte</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('deconnecter') }}"> Me deconnecter</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('inscription') }}"> Inscription</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('connexion') }}"> Me connecter</a>
+        </li>
+        {% endif %}
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>

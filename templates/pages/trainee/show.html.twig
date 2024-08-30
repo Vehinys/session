@@ -46,10 +46,16 @@
 
             </div>
 
+            {% if app.user %}
+
             <div>
                 <td> <a href="{{ path('trainee.edit',   {id:trainee.id}) }}"><button type="button" class="btn btn-warning" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Modifier le stagiaire  </button></a>
                 <td> <a href="{{ path('trainee.delete', {id:trainee.id}) }}"><button type="button" class="btn btn-danger " data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Supprimer le stagaire </button></a>
             </div>
+
+            {% else %}
+
+            {% endif %}
 
 
     <a href="{{ path('trainee') }}"> <button type="submit" class="btn btn-dark mt-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour </button> </a>

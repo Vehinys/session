@@ -5,10 +5,12 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Il y a déjà un compte avec cette adresse e-mail')]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,7 +20,7 @@ class User
     #[ORM\Column(length: 150)]
     private ?string $fullname = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
@@ -58,10 +60,38 @@ class User
         return $this->password;
     }
 
-    public function setPassword(string $password): static
+    public function setPassword(string $password): self
     {
         $this->password = $password;
 
         return $this;
+    }
+
+    // Implémentation des méthodes requises par UserInterface
+    public function getRoles(): array
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getSalt(): ?string
+    {
+        // Non nécessaire si vous utilisez bcrypt ou sodium pour le hachage
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        // Si vous stockez des données temporaires sensibles, effacez-les ici
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    // Déprécié : Symfony 5.3+
+    public function getUsername(): string
+    {
+        return $this->getEmail();
     }
 }

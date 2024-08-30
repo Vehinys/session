@@ -1,4 +1,5 @@
-img{
+/* Styles généraux existants */
+img {
     width: 70px;
 }
 
@@ -12,11 +13,17 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #363636; /* Fond sombre global */
+    color: #e0e0e0; /* Couleur du texte global */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
 }
 
 .container-wrap {
@@ -25,8 +32,6 @@ body {
     height: 100%;
     justify-content: space-between;
 }
-
-
 
 .text-uppercase {
     text-transform: uppercase;
@@ -41,7 +46,8 @@ main {
 }
 
 footer {
-    background-color: #f1f1f1;
+    background-color: #1e1e1e; /* Fond sombre pour le footer */
+    color: #e0e0e0; /* Couleur du texte du footer */
     text-align: center;
     padding: 20px 0;
 }
@@ -54,10 +60,82 @@ footer {
     align-content: center;
     text-align: center;
 }
-.size{
+
+.size {
     font-size: 20px;
 }
 
-footer {
-    color: white;
+/* Styles spécifiques pour la page de connexion */
+form {
+    background: #1e1e1e;
+    border-radius: 12px; /* Bordures plus arrondies pour un look moderne */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Ombre plus prononcée */
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 420px;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre le contenu du formulaire */
+}
+
+h1 {
+    color: #ffffff;
+    font-size: 1.75rem; /* Taille du texte agrandie */
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+label {
+    color: #b0b0b0;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+input[type="email"],
+input[type="password"] {
+    background: #2a2a2a;
+    border: 1px solid #333;
+    border-radius: 8px; /* Bordures plus arrondies pour les champs de saisie */
+    color: #e0e0e0;
+    padding: 0.75rem 1rem; /* Ajoute un padding horizontal plus large */
+    font-size: 1rem;
+    margin-bottom: 1.25rem; /* Augmente l'espacement entre les champs */
+    width: 100%;
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+}
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #666;
+}
+
+button {
+    background-color: #6200ea;
+    border: none;
+    border-radius: 8px; /* Bordures plus arrondies pour le bouton */
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1.125rem; /* Augmente la taille du texte du bouton */
+    padding: 0.75rem;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Ajoute une transition pour le transform */
+}
+
+button:hover {
+    background-color: #3700b3;
+    transform: scale(1.05); /* Ajoute un léger zoom au survol */
+}
+
+.alert {
+    background-color: #b00020;
+    color: #ffffff;
+    border-radius: 8px; /* Bordures arrondies pour les alertes */
+    padding: 1rem;
+    margin-bottom: 1rem;
+    width: 100%; /* S'assure que l'alerte occupe toute la largeur du formulaire */
+}
+
+.alert-danger {
+    background-color: #b00020;
 }
