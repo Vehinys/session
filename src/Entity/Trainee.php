@@ -47,6 +47,7 @@ class Trainee
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
+        $this->date_birth = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

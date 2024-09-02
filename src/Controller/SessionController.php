@@ -5,9 +5,9 @@ namespace App\Controller;
 use App\Entity\Session;
 use App\Entity\Trainee;
 use App\Form\SessionType;
-use Doctrine\ORM\Mapping\Entity;
 use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,11 +20,17 @@ class SessionController extends AbstractController
     
     public function index(
         
-        SessionRepository $repository
+        SessionRepository $repository,
+        PaginatorInterface $paginator,
+        Request $request
         
     ): Response{
-        // Récupération de toutes les sessions depuis le repository
-        $sessions = $repository->findAll();
+
+        $sessions = $paginator->paginate(
+            $sessions = $repository->findAll(),
+            $request->query->getInt('page', 1), 
+            10
+        );
 
         // On passe les sessions récupérées à la vue via le tableau associatif 'sessions'
         return $this->render('/pages/session/index.html.twig', [
@@ -213,5 +219,7 @@ class SessionController extends AbstractController
         // Redirection vers la route 'session'
         return $this->redirectToRoute('session');
     }
+
+    
 
 }

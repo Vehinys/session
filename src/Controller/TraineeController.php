@@ -6,6 +6,7 @@ use App\Entity\Trainee;
 use App\Form\TraineeType;
 use App\Repository\TraineeRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,12 +19,20 @@ class TraineeController extends AbstractController
     
     public function index(
         
-        TraineeRepository $repository
+        TraineeRepository $repository,
+        PaginatorInterface $paginator,
+        Request $request
         
     ): Response {
 
-        // Récupération de tous les stagiaires à partir du repository
-        $trainees = $repository->findAll();
+        $trainees = $paginator->paginate(
+            // Récupération de tous les stagiaires à partir du repository
+            $trainees = $repository->findAll(),
+            $request->query->getInt('page', 1), 
+            10
+        );
+
+        
 
         // Rendu du template Twig en passant la liste des stagiaires
         return $this->render('/pages/trainee/index.html.twig', [
