@@ -34,9 +34,8 @@
                         <ul> 
                             <li> 
                                 <p>
-                                    <b>
-                                        {{ session.name }} 
-                                    </b>
+                                    
+                                    <b><a class="text-decoration-none " title="Lien vers la session" href="{{path('show_session', {id:session.id}) }}"> {{ session.name }} </a></b>
 
                                     (Du {{ session.startSession|date('d/m/Y') }} au {{ session.endSession|date('d/m/Y')   }})
                                 </p>

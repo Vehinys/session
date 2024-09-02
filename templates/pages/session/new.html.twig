@@ -17,10 +17,9 @@
         {{form_row(form.nb_places)}}
         {{form_row(form.nb_places_reserved)}}
         
-        <h2>Programme de la session</h2>
+        <h2 class="mt-4">Programme de la session</h2>
     
-        <div class="form-group row">
-            {# <div class="col-form-label col-sm-2">$nbsp;</div> #}
+        <div class="form-group row mt-3">
             <div id="programme-fields-list" class="col-sm-10 remove-collection-widget"
             data-prototype="{{ form_widget(form.programmes.vars.prototype)|e }}"
             data-session="{{sessionId}}"
@@ -46,7 +45,7 @@
 
 
 
-<a href="{{ path('session') }}"> <button type="submit" class="btn btn-dark mb-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour</button> </a>
+<a href="{{ path('session') }}"> <button type="submit" class="btn btn-dark mt-4" data-nlok-ref-guid="1758b875-4f72-41d6-f4d6-49b1b6ef4bd5"> Retour</button> </a>
 
 </div>
 

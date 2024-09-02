@@ -51,6 +51,10 @@
     </tbody>
 </table>
 
+<div class="navigation mt-3 mb-3">
+    {{ knp_pagination_render(sessions) }}
+</div>
+
     {% if app.user %}
         <a href="{{ path('session.new') }}"> <button type="button" class="btn btn-dark mb-4"> Ajouter une session </button> </a>
     {% else %}

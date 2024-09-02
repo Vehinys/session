@@ -29,7 +29,6 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: space-between;
 }
 
 .text-uppercase {
@@ -136,4 +135,61 @@ button:hover {
 
 .alert-danger {
     background-color: #b00020;
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.5rem;
+    }
+    .container-fluid {
+        place-content: center !important;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .table {
+        font-size: 0.875rem;
+    }
+
+    .table th, .table td {
+        padding: 0.5rem;
+    }
+
+    .icone {
+        width: 30px; /* Réduisez la taille des icônes pour les petits écrans */
+    }
+
+    .btn {
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+
+    .size {
+        font-size: 16px;
+    }
+
+    form {
+        padding: 1.5rem;
+        max-width: 100%;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+
+    .alert {
+        font-size: 0.875rem;
+        padding: 0.75rem;
+    }
 }
